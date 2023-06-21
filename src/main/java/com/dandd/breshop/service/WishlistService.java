@@ -1,12 +1,13 @@
 package com.dandd.breshop.service;
 
-import com.dandd.breshop.entity.Wishlist;
+import com.dandd.breshop.dto.WishlistDTO;
+import org.springframework.data.domain.Page;
 
-import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public interface WishlistService {
-    Wishlist create(Wishlist wishlist);
-    List<Wishlist> readAll(UUID userId);
-    void delete(Wishlist wishlist);
+    Optional<WishlistDTO> create(WishlistDTO request, String token);
+    Page<WishlistDTO> readAll(int page, String token);
+    void delete(UUID itemId, String token);
 }

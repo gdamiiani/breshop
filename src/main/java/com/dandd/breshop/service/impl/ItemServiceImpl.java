@@ -81,6 +81,7 @@ public class ItemServiceImpl implements ItemService {
         if (findSeller.isEmpty() || findItem.isEmpty() ||
                 !findItem.get().getSeller().equals(findSeller.get())
         ) {
+            System.out.println("verme");
             return;
         }
 

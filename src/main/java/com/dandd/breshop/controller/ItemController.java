@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.net.URI;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -21,7 +22,12 @@ public class ItemController {
             @RequestBody ItemDTO request,
             @RequestHeader("Authorization") String token
     ) {
-        return ResponseEntity.ok(itemService.create(request, token));
+        var item = itemService.create(request, token);
+
+        assert item.isPresent();
+
+        return ResponseEntity.created(URI.create("http://localhost:8080/item/" + item.get().getId()))
+                .body(item);
     }
 
     @GetMapping
