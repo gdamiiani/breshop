@@ -40,9 +40,6 @@ public class WishlistServiceImpl implements WishlistService {
 
         var wishlist = wishlistRepository.save(Wishlist.map(item, user));
 
-        System.out.println(wishlist);
-        System.out.println(wishlist.getItem().getName());
-
         return Optional.of(WishlistDTO.map(wishlist));
     }
 

@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.time.Instant;
+import java.util.Set;
 import java.util.UUID;
 
 @Data
@@ -26,8 +27,6 @@ public class Item {
     private String name;
     @Column(nullable = false)
     private String description;
-    @Column(nullable = false)
-    private String category;
     @Column(nullable = false, precision = 6, scale = 2)
     private BigDecimal price;
     @Column(nullable = false)
@@ -37,19 +36,38 @@ public class Item {
 
     private String imagePath;
 
+    @ManyToMany
+    private Set<Category> categories;
+
     @ManyToOne @JoinColumn(nullable = false)
     private User seller;
     @ManyToOne
     private User buyer;
 
-    public static Item map(ItemDTO itemDTO, User seller, User buyer) {
+    public static Item map(ItemDTO itemDTO, Set<Category> categories, User seller, User buyer) {
         return Item.builder()
                 .name(itemDTO.getName())
                 .description(itemDTO.getDescription())
-                .category(itemDTO.getCategory())
                 .price(itemDTO.getPrice())
                 .lastChange(Timestamp.from(Instant.now()))
                 .available(itemDTO.isAvailable())
+                .imagePath(itemDTO.getImagePath())
+                .categories(categories)
+                .seller(seller)
+                .buyer(buyer)
+                .build();
+    }
+
+    public static Item map(UUID id, ItemDTO itemDTO, Set<Category> categories, User seller, User buyer) {
+        return Item.builder()
+                .id(id)
+                .name(itemDTO.getName())
+                .description(itemDTO.getDescription())
+                .price(itemDTO.getPrice())
+                .lastChange(Timestamp.from(Instant.now()))
+                .available(itemDTO.isAvailable())
+                .imagePath(itemDTO.getImagePath())
+                .categories(categories)
                 .seller(seller)
                 .buyer(buyer)
                 .build();

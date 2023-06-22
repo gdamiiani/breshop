@@ -14,15 +14,9 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table
-public class Rating {
+public class Category {
     @Id @GeneratedValue
     private UUID id;
-    @Column(nullable = false)
-    private int stars;
-    private String message;
-
-    @ManyToOne
-    private User seller;
-    @ManyToOne
-    private User buyer;
+    @Column(nullable = false, unique = true)
+    private String name;
 }

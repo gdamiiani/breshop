@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.sql.Timestamp;
 import java.util.UUID;
 
 @Data
@@ -14,15 +15,16 @@ import java.util.UUID;
 @AllArgsConstructor
 @Entity
 @Table
-public class Rating {
+public class Message {
     @Id @GeneratedValue
     private UUID id;
     @Column(nullable = false)
-    private int stars;
-    private String message;
+    private String messageSent;
+    @Column(nullable = false)
+    private Timestamp datetimeSent;
 
-    @ManyToOne
-    private User seller;
-    @ManyToOne
-    private User buyer;
+    @ManyToOne @JoinColumn(nullable = false)
+    private User sender;
+    @ManyToOne @JoinColumn(nullable = false)
+    private User receiver;
 }

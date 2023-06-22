@@ -36,6 +36,8 @@ public class SecurityConfig {
                         .permitAll()
                         .requestMatchers("/item/**")
                         .permitAll()
+                        .requestMatchers("/wishlist/**")
+                        .permitAll()
                         .anyRequest()
                         .authenticated()
                 )

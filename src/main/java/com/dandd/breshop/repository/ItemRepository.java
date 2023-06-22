@@ -10,5 +10,5 @@ import java.util.UUID;
 
 @Repository
 public interface ItemRepository extends JpaRepository<Item, UUID> {
-    Page<Item> findAllByNameContainingAndCategoryContainingAllIgnoreCaseOrderByLastChangeDesc(String name, String category, Pageable pageable);
+    Page<Item> findAllByNameContainingAndCategories_NameContainingAllIgnoreCaseOrderByLastChangeDesc(String name, String categoryName, Pageable pageable);
 }
